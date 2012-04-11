@@ -169,7 +169,7 @@ alias v='vim'
 alias weechat='weechat-curses'
 alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Terminus'
 alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
-origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
+ origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
 
 # From https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 
