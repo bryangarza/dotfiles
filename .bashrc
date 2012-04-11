@@ -17,7 +17,7 @@ set -o vi
 shopt -s histappend
 
 # After each command, save and reload history
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a ; ${PROMPT_COMMAND:-:}"
 
 # Change directory, list all files.
 dc(){
