@@ -109,6 +109,7 @@ function allup {
     aurget -Syu
 }
 
+# thanks graysky
 function x {
 	if [[ -f "$1" ]]; then
 		case "$1" in
