@@ -149,28 +149,37 @@ function x {
 
 alias ls='ls --color=always'
 alias la='ls -AF'	# show hidden files, denotes dirs, exes
+
 alias inst='sudo pacman -S --needed'
 alias aurs='aurget -S'
 alias aurup='aurget -Syu'
 alias pacup='sudo pacman -Syu'
+
 alias ca='clear; la'
+alias c='clear'
+
 alias rm='rm -v'
 alias rr='rm -rv'
+
 alias cp='cp -v'
 alias cr='cp -rv'
+
 alias mv='mv -v'
+
 alias off='echo Shutdown; sudo shutdown -h now'
 alias offr='echo Reboot; sudo shutdown -r now'
+
 alias gs='git status'
 alias gp='git push origin master'
 alias gd='git diff'
-alias c='clear'
+alias gc='git commit -a -v'
+alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
+ origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
+
 alias makedwm='makepkg -efi --skipinteg'
 alias v='vim'
 alias weechat='weechat-curses'
 alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Terminus'
-alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
- origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
 
 # From https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 
