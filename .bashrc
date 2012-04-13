@@ -172,7 +172,7 @@ alias offr='echo Reboot; sudo shutdown -r now'
 alias gs='git status'
 alias gp='git push origin master'
 alias gd='git diff'
-alias gc='git commit -a -v'
+alias gc='git commit -a -v && git push origin master'
 alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
  origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
 
