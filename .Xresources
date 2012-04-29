@@ -1,4 +1,5 @@
-URxvt*geom:     130x80
+URxvt*termName: rxvt-unicode-256color
+!URxvt*geom:     130x80
 !URxvt*font: xft:Inconsolata:pixelsize=19
 !URxvt*font: xft:Terminus:pixelsize=15
 !URxvt*boldFont: xft: Terminus:pixelsize=15
@@ -15,29 +16,4 @@ URxvt.matcher.button:   1
 URxvt.keysym.C-Delete:  perl:matcher:last
 URxvt.keysym.M-Delete:  perl:matcher:list
 
-URxvt*foreground: #CCCCCC
-URxvt*background: #111111
-!black
-*color0: #222222
-*color8: #666666
-!red
-*color1: #E84F4F
-*color9: #D23D3D
-!green
-*color2: #B7CE42
-*color10: #BDE077
-!yellow
-*color3: #FEA63C
-*color11: #FFE863
-!blue
-*color4: #66A9B9
-*color12: #AACCBB
-!magenta
-*color5: #B7416E
-*color13: #E16A98
-!cyan
-*color6: #6D878D
-*color14: #42717B
-!white
-*color7: #CCCCCC
-*color15: #FFFFFF
+#include "/home/prole/.colors/wolfcore"

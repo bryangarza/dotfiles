@@ -8,7 +8,6 @@
 
 # avoid duplicates
 export HISTCONTROL=ignoredups:erasedups
-export TERM=xterm-256color
 export EDITOR=vim
 export HISTSIZE=10000
 
@@ -18,6 +17,21 @@ shopt -s histappend
 
 # After each command, save and reload history
 export PROMPT_COMMAND="history -a ; ${PROMPT_COMMAND:-:}"
+
+dwm_bindings() {
+    cat<<EOF
+dwm user-specific bindings:
+
+    MOD-Shift-Return -> term
+    MOD-Shift-o      -> web
+    MOD-Shift-i      -> irc
+    MOD-Shift-m      -> music
+    MOD-Shift-s      -> extra-term
+    MOD-Shift-g      -> gimp
+    MOD-Shift-e      -> pdf
+EOF
+}
+
 
 # Change directory, list all files.
 dc(){
@@ -96,21 +110,21 @@ xevq() {
     xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
 
-function refup {
+refup() {
     sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
     echo 'backed up mirrorlist...'
     sudo reflector -l 5 --sort rate --save /etc/pacman.d/mirrorlist
     echo 'latest mirror list retrieved.'
 }
 
-function allup {
+allup() {
     refup
     sudo pacman -Syu
     aurget -Syu
 }
 
 # thanks graysky
-function x {
+x() {
 	if [[ -f "$1" ]]; then
 		case "$1" in
 			*.lrz) lrztar -d "$1" && cd $(basename "$1" .lrz)
@@ -149,6 +163,7 @@ function x {
 
 alias ls='ls --color=always'
 alias la='ls -AF'	# show hidden files, denotes dirs, exes
+alias ll='ls -l'
 
 alias inst='sudo pacman -S --needed'
 alias aurs='aurget -S'
@@ -172,14 +187,17 @@ alias offr='echo Reboot; sudo shutdown -r now'
 alias gs='git status'
 alias gp='git push origin master'
 alias gd='git diff'
-alias gc='git commit -a -v && git push origin master'
+alias gc='git commit -a -v'
+alias gcp='git commit -a -v && git push origin master'
 alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
  origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
 
 alias makedwm='makepkg -efi --skipinteg'
 alias v='vim'
+alias vd='vimdiff'
 alias weechat='weechat-curses'
 alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Terminus'
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 # From https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 
@@ -204,8 +222,16 @@ IPurple='\e[0;95m'      # Purple
 ICyan='\e[0;96m'        # Cyan
 IWhite='\e[0;97m'       # White
 
+get_tot() {
+    echo "$(($(find . -maxdepth 1 | wc -l)-1))"
+}
+
+get_hid() {
+    echo "$(($(find . -maxdepth 1 -iname '.*' | wc -l)-1))"
+}
+
 #PS1="${NC}[${IYellow}\w${NC}] has ${IYellow}\$((\$(find . -maxdepth 1 | wc -l) - 1))${NC} total files,\
 # ${IYellow}\$((\$(find . -maxdepth 1 | wc -l) - \$(find . -maxdepth 1 ! -name \.\* | wc -l)))${NC} hidden,\
 # ${IYellow}\$(find . -maxdepth 1 -type f -perm -u+rx | wc -l)${NC} executable.\n${IYellow}\$${NC} "
-PS1="[${IGreen}\w${NC}] [${IYellow}\$((\$(find . -maxdepth 1 | wc -l) - 1))${NC}] ${White}\$${NC} "
+PS1=" ${IWhite}\w (\$(get_tot),\$(get_hid)) ${Red}>${Blue}>${IYellow}>${NC} "
 export PS1

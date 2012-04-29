@@ -57,7 +57,7 @@ set textwidth=79
 set background=dark
 
 " Set the color scheme.
-colorscheme delek
+colorscheme slate
 
 " Print the line number in front of each line.
 set number

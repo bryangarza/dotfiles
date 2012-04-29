@@ -40,5 +40,5 @@ xbindkeys
 while true; do ~/bin/dwmstatus; sleep 1s; done &
 unclutter -idle 10 -jitter 5 &
 # Set wallpaper (example)
-#feh --bg-scale ~/.xwallpaper-dwm.png
+feh --bg-scale ~/images/d3_steamgraph.png
 exec dwm
