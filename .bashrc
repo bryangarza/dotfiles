@@ -10,6 +10,8 @@
 export HISTCONTROL=ignoredups:erasedups
 export EDITOR=vim
 export HISTSIZE=10000
+export LC_ALL=
+export LC_COLLATE="C"
 
 set -o vi
 # append history entries
@@ -18,25 +20,18 @@ shopt -s histappend
 # After each command, save and reload history
 export PROMPT_COMMAND="history -a ; ${PROMPT_COMMAND:-:}"
 
-dwm_bindings() {
-    cat<<EOF
-dwm user-specific bindings:
-
-    MOD-Shift-Return -> term
-    MOD-Shift-o      -> web
-    MOD-Shift-i      -> irc
-    MOD-Shift-m      -> music
-    MOD-Shift-s      -> extra-term
-    MOD-Shift-g      -> gimp
-    MOD-Shift-e      -> pdf
-EOF
-}
-
-
-# Change directory, list all files.
-dc(){
-    cd ${1:-$HOME}
-    ls -aF --color=always
+prompt() {
+    while true; do
+        read -p "$@ [Y/n] " yn
+        case $yn in
+            [Yy]* ) return 0
+                ;;
+            [Nn]* ) return 1
+                ;;
+            *) echo 'invalid answer' >&2
+                ;;
+        esac
+    done
 }
 
 # map caps to esc
@@ -92,12 +87,6 @@ vp() {
     fi
 }
 
-vx() {
-    CURRENT=$PWD
-    vim ~/.Xresources
-    cd $CURRENT
-}
-
 vv() {
     CURRENT=$PWD
     cd $HOME
@@ -105,7 +94,7 @@ vv() {
     cd $CURRENT
 }
 
-# Saner, quieter xev.
+# quieter xev.
 xevq() {
     xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'
 }
@@ -115,12 +104,6 @@ refup() {
     echo 'backed up mirrorlist...'
     sudo reflector -l 5 --sort rate --save /etc/pacman.d/mirrorlist
     echo 'latest mirror list retrieved.'
-}
-
-allup() {
-    refup
-    sudo pacman -Syu
-    aurget -Syu
 }
 
 # thanks graysky
@@ -161,14 +144,19 @@ x() {
 	fi
 }
 
+pacup_update() {
+    export dwmstatus_upd="^DUpd^C $(pacman -Qqu --dbpath /tmp/checkup-db-prole/ | wc -l)"
+}
+
 alias ls='ls --color=always'
 alias la='ls -AF'	# show hidden files, denotes dirs, exes
 alias ll='ls -l'
 
 alias inst='sudo pacman -S --needed'
 alias aurs='aurget -S'
-alias aurup='aurget -Syu'
-alias pacup='sudo pacman -Syu'
+#alias aurup="aurget -Syu && dwmstatus_aur=\"^DAur^C $(cower -u | wc -l)\""
+alias par='pacaur'
+alias pacup='sudo pacman -Syu && pacup_update'
 
 alias ca='clear; la'
 alias c='clear'
@@ -185,18 +173,22 @@ alias off='echo Shutdown; sudo shutdown -h now'
 alias offr='echo Reboot; sudo shutdown -r now'
 
 alias gs='git status'
-alias gp='git push origin master'
+alias gp='git push origin'
 alias gd='git diff'
-alias gc='git commit -a -v'
-alias gcp='git commit -a -v && git push origin master'
-alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add\
- origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
+alias gc='git commit -v'
+alias gcp='git commit -a -v && git push origin'
+alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
+alias gb='git branch'
 
 alias makedwm='makepkg -efi --skipinteg'
+
 alias v='vim'
 alias vd='vimdiff'
+alias vt='vim /home/prole/.tmux.conf'
+alias vdwm="vim /home/prole/dwm/config.h && prompt 'remake?' && cd ~/dwm && makepkg -efi --skipinteg"
+
 alias weechat='weechat-curses'
-alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Terminus'
+alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Termsyn'
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 # From https://wiki.archlinux.org/index.php/Color_Bash_Prompt
@@ -216,7 +208,7 @@ White='\e[0;37m'        # White
 IBlack='\e[0;90m'       # Black
 IRed='\e[0;91m'         # Red
 IGreen='\e[0;92m'       # Green
-IYellow='\e[0;93m'      # Yellow
+IY='\e[0;93m'      # Yellow
 IBlue='\e[0;94m'        # Blue
 IPurple='\e[0;95m'      # Purple
 ICyan='\e[0;96m'        # Cyan
@@ -233,5 +225,6 @@ get_hid() {
 #PS1="${NC}[${IYellow}\w${NC}] has ${IYellow}\$((\$(find . -maxdepth 1 | wc -l) - 1))${NC} total files,\
 # ${IYellow}\$((\$(find . -maxdepth 1 | wc -l) - \$(find . -maxdepth 1 ! -name \.\* | wc -l)))${NC} hidden,\
 # ${IYellow}\$(find . -maxdepth 1 -type f -perm -u+rx | wc -l)${NC} executable.\n${IYellow}\$${NC} "
-PS1=" ${IWhite}\w (\$(get_tot),\$(get_hid)) ${Red}>${Blue}>${IYellow}>${NC} "
+#PS1="${IWhite}\w \$(get_tot)${IYellow}\$"
+PS1="\w ${IY}\$(get_tot)${NC} "
 export PS1

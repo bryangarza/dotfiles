@@ -11,6 +11,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
+. ~/.bash_profile
+
 # For terminus/artwiz-fonts fonts:
 xset +fp /usr/share/fonts/local,/usr/share/fonts/artwiz-fonts
 xset fp rehash
@@ -37,8 +39,8 @@ xset s off
 xrdb ~/.Xresources
 xbindkeys
     
-while true; do ~/bin/dwmstatus; sleep 1s; done &
+~/bin/dwmstatus &
 unclutter -idle 10 -jitter 5 &
 # Set wallpaper (example)
-feh --bg-scale ~/images/d3_steamgraph.png
+hsetroot -center ~/images/d3_steamgraph.png
 exec dwm

@@ -2,6 +2,9 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" Set terminal title to filename
+set title
+
 " Switch syntax highlighting on.
 syntax on
 

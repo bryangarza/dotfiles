@@ -7,8 +7,5 @@
 PATH=$PATH:$HOME/bin
 export PATH
 
-#DWM_NOTIF="TEST MESSAGE"
-#export DWM_NOTIF
-
-#DWM_NOTIF_COUNT=50
-#export DWM_NOTIF_COUNT
+export dwmstatus_aur="^DAur^C $(cower -u | wc -l)"
+export dwmstatus_upd="^DUpd^C $(pacman -Qqu --dbpath /tmp/checkup-db-prole/ | wc -l)"
