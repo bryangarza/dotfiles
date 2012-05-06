@@ -64,35 +64,25 @@ dpms() {
 }
 
 vb() {
-    if [[ $1 = "r" ]]
+    if [[ $1 == 'r' ]]
     then
         . ~/.bashrc
-        echo "sourced ~/.bashrc"
+        echo 'sourced ~/.bashrc'
     else
-        CURRENT=$PWD
         vim ~/.bashrc
-        cd $CURRENT
     fi
 }
 
 vp() {
-    if [[ $1 = "r" ]]
+    if [[ $1 == 'r' ]]
     then
         . ~/.bash_profile
-        echo "sourced ~/.bash_profile"
+        echo 'sourced ~/.bash_profile'
     else
-        CURRENT=$PWD
         vim ~/.bash_profile
-        cd $CURRENT
     fi
 }
 
-vv() {
-    CURRENT=$PWD
-    cd $HOME
-    vim ~/.vimrc
-    cd $CURRENT
-}
 
 # quieter xev.
 xevq() {
@@ -186,6 +176,7 @@ alias v='vim'
 alias vd='vimdiff'
 alias vt='vim /home/prole/.tmux.conf'
 alias vdwm="vim /home/prole/dwm/config.h && prompt 'remake?' && cd ~/dwm && makepkg -efi --skipinteg"
+alias vv='vim ~/.vimrc'
 
 alias weechat='weechat-curses'
 alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Termsyn'
