@@ -12,12 +12,3 @@
 "amixer set Master toggle"
     m:0x0 + c:121
     XF86AudioMute
-
-# Screenshots
-"sour | xclip"
-    m:0x0 + c:95
-    F11
-
-"sour -f | xclip"
-    m:0x0 + c:96
-    F12
