@@ -42,5 +42,5 @@ xbindkeys
 ~/bin/dwmstatus &
 unclutter -idle 10 -jitter 5 &
 # Set wallpaper (example)
-hsetroot -center ~/images/d3_steamgraph.png
+hsetroot -center ~/images/skysun.jpg
 exec dwm
