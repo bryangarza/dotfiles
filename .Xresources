@@ -15,7 +15,7 @@ URxvt*scrollBar:	False
 URxvt.perl-ext-common:  default,url-select,autocomplete-ALL-the-things
 URxvt.keysym.M-u:   perl:url-select:select_next
 URxvt.keysym.M-slash: perl:aAtt:complete
-URxvt.urlLauncher:  /home/prole/bin/tabd
+URxvt.urlLauncher:  dwb
 URxvt.underlineURLs: true
 URxvt.matcher.button:   1
 URxvt.keysym.C-Delete:  perl:matcher:last
