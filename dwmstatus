@@ -11,7 +11,7 @@ date_upd() {
 }
 
 pb_stat() {
-    if (($(pgrep -c pianobar) > 0)); then
+    if (($(pgrep -c pianobar) > 0)) || (($(pgrep -c pianobarfly) > 0)); then
         if [[ -s "$file" ]]; then
             source "$file"
             mus="$artist - $title |"
