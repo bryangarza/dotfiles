@@ -1,11 +1,26 @@
 #!/bin/bash
 
+file='/tmp/pbstats'
+
 pac_upd() {
     dwmstatus_upd="Upd $(pacman -Qqu --dbpath /tmp/checkup-db-prole/ | wc -l)"
 }
 
 date_upd() {
     sdate="$(date +"%B") $(date +"%d")"
+}
+
+pb_stat() {
+    if (($(pgrep -c pianobar) > 0)); then
+        if [[ -s "$file" ]]; then
+            source "$file"
+            mus="$artist - $title |"
+        else
+            mus=''
+        fi
+    else
+        mus=''
+    fi
 }
 
 pac_upd
@@ -24,7 +39,8 @@ fi
 if ((date_check == 23)) && ((minute >= 59)); then
     date_upd
 fi
-    
+
+pb_stat
 
 vol="Vol $(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/')"
 volstat=$(amixer get Master | tail -n 1 | cut -d' ' -f 8-)
@@ -37,7 +53,7 @@ then
     vol="Vol --%"
 fi
 
-out="${dwmstatus_upd} ${vol} ${sdate} ${stime} "
+out="${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
 xsetroot -name "${out}"
 
 sleep 1s
