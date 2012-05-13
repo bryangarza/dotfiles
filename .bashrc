@@ -178,19 +178,13 @@ x() {
 	fi
 }
 
-pacup_update() {
-    export dwmstatus_upd="^DUpd^C $(pacman -Qqu --dbpath /tmp/checkup-db-prole/ | wc -l)"
-}
-
 alias ls='ls --color=always'
 alias la='ls -AF'	# show hidden files, denotes dirs, exes
 alias ll='ls -l'
 
 alias inst='sudo pacman -S --needed'
-alias aurs='aurget -S'
-#alias aurup="aurget -Syu && dwmstatus_aur=\"^DAur^C $(cower -u | wc -l)\""
-alias par='pacaur'
-alias pacup='sudo pacman -Syu && pacup_update'
+alias rem='sudo pacman -Rns'
+alias pacup='sudo pacman -Syu'
 
 alias ca='clear; la'
 alias c='clear'
@@ -219,7 +213,7 @@ alias makedwm='makepkg -efi --skipinteg'
 alias v='vim'
 alias vd='vimdiff'
 alias vt='vim /home/prole/.tmux.conf'
-alias vdwm="vim /home/prole/dwm/config.h && prompt 'remake?' && cd ~/dwm && makepkg -efi --skipinteg"
+alias vdwm="vim /home/prole/dwm/config.h && prompt 'remake?' && cd ~/dwm && makepkg -efi --skipinteg ;cd ~"
 alias vv='vim ~/.vimrc'
 
 alias weechat='weechat-curses'
