@@ -72,3 +72,6 @@ set showmatch
 
 " Highlight the screen line of the cursor with CursorLine.
 " set cursorline " cursorcolumn
+
+" View the changes you have made to a buffer since the file was loaded
+command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
