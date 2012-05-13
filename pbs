@@ -11,13 +11,13 @@ if [[ "$@" == 'songstart' ]]; then
 
     while read -r line
     do
-        if ((numlines <= 1)); then
-            echo "$line" >> "$file"
+        if ((numlines == 0)); then
+            echo -n "${line:7} - " >> "$file"
+            numlines=$((numlines+1))
+        elif ((numlines == 1)); then
+            echo -n "${line:6} |" >> "$file"
             numlines=$((numlines+1))
         fi
     done
-
-    sed -i 's/=/=\"/g' "$file"
-    sed -i 's/$/\"/g' "$file"
 
 fi
