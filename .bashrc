@@ -12,13 +12,13 @@ export EDITOR=vim
 export HISTSIZE=10000
 export LC_ALL=
 export LC_COLLATE="C"
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a ; ${PROMPT_COMMAND:-:}"
 
 set -o vi
 # append history entries
 shopt -s histappend
 
-# After each command, save and reload history
-export PROMPT_COMMAND="history -a ; ${PROMPT_COMMAND:-:}"
 
 prompt() {
     while true; do
@@ -78,35 +78,6 @@ echocolors() {
     echo
 }
 
-# map caps to esc
-mapcaps(){
-    xmodmap -e "clear lock"
-    xmodmap -e "keycode 0x42 = Escape"
-    echo mapcaps: caps-lock set to Escape via xmodmap
-}
-unmapcaps(){
-    xmodmap -e "keycode 0x42 = Caps_Lock"
-    xmodmap -e "add lock = Caps_Lock"
-    echo unmapcaps: caps-lock set to caps-lock via xmodmap
-}
-
-# Disable/enable DPMS and screen saver.
-dpms() {
-    if [[ $1 = "on" ]]
-    then
-        xset +dpms
-        xset s on
-    elif [[ $1 = "off" ]]
-    then
-        xset -dpms
-        xset s off
-    elif [[ $1 = "info" ]]
-    then
-        dpms_query=`xset -q | tail --lines=3`
-        echo "$dpms_query"
-    fi
-}
-
 vb() {
     if [[ $1 == 'r' ]]
     then
@@ -116,17 +87,6 @@ vb() {
         vim ~/.bashrc
     fi
 }
-
-vp() {
-    if [[ $1 == 'r' ]]
-    then
-        . ~/.bash_profile
-        echo 'sourced ~/.bash_profile'
-    else
-        vim ~/.bash_profile
-    fi
-}
-
 
 # quieter xev.
 xevq() {
@@ -204,6 +164,7 @@ alias gs='git status'
 alias gp='git push origin'
 alias gd='git diff'
 alias gc='git commit -v'
+alias gco='git checkout'
 alias gcp='git commit -a -v && git push origin'
 alias renamerepo="echo -e \"rename at github.com\ngit remote rm origin\ngit remote add origin git@github.com:[USERNAME]/[PROJECT_NAME].git\""
 alias gb='git branch'
@@ -219,6 +180,15 @@ alias vv='vim ~/.vimrc'
 alias weechat='weechat-curses'
 alias enpois='envee -A poison -a g -l w -d r -s WM=dwm -s Font=Artwiz-Lime/Termsyn'
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+
+# map caps to esc
+alias mapcaps='xmodmap -e "clear lock"; xmodmap -e "keycode 0x42 = Escape"'
+alias unmapcaps='xmodmap -e "keycode 0x42 = Caps_Lock"; xmodmap -e "add lock = Caps_Lock"'
+# Disable/enable DPMS and screen saver.
+alias dpmson='xset +dpms; xset s on'
+alias dmpsoff='xset -dpms; xset s off'
+alias dpms='xset -q | tail --lines=3'
+
 
 # From https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 
