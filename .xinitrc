@@ -14,14 +14,18 @@ fi
 
 xset +fp /usr/share/fonts/local,/usr/share/fonts/artwiz-fonts
 xset fp rehash
-xmodmap
+
+xmodmap -e "clear lock"
+xmodmap -e "keycode 0x42 = Escape"
+xbindkeys
+
 xset -dpms
 xset s off
+
 xrdb ~/.Xresources
-xbindkeys
     
-~/bin/dwmstatus &
-unclutter -idle 10 -jitter 5 &
 hsetroot -center ~/images/skysun.jpg
+unclutter -idle 10 -jitter 5 &
+~/bin/dwmstatus &
 urxvtd -q -o -f
 exec dwm
