@@ -142,7 +142,7 @@ alias ls='ls --color=always'
 alias la='ls -AF'	# show hidden files, denotes dirs, exes
 alias ll='ls -l'
 
-alias inst='sudo pacman -S --needed'
+alias inst='sudo pacman -Syu --needed'
 alias rem='sudo pacman -Rns'
 alias pacup='sudo pacman -Syu'
 
