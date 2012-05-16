@@ -22,6 +22,14 @@ pb_stat() {
     fi
 }
 
+cmus_stat() {
+    if (($(pgrep -c cmus) > 0)); then
+        local pre_title="$(cmus-remote -Q | grep 'tag title')"
+        local pre_artist="$(cmus-remote -Q | grep 'tag artist')"
+        mus="${pre_artist:10} - ${pre_title:9} |"
+    fi
+}
+
 pac_upd
 date_upd
 
@@ -40,6 +48,7 @@ if ((date_check == 23)) && ((minute >= 59)); then
 fi
 
 pb_stat
+cmus_stat
 
 vol="Vol $(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/')"
 volstat=$(amixer get Master | tail -n 1 | cut -d' ' -f 8-)
