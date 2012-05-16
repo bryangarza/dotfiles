@@ -24,7 +24,7 @@ xset s off
 
 xrdb ~/.Xresources
     
-hsetroot -center ~/images/skysun.jpg
+hsetroot -center ~/images/paletrees.jpg
 unclutter -idle 10 -jitter 5 &
 ~/bin/dwmstatus &
 urxvtd -q -o -f
