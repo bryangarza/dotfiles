@@ -11,6 +11,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 . ~/.bash_profile
+xrdb ~/.Xresources
 
 xset +fp /usr/share/fonts/local,/usr/share/fonts/artwiz-fonts
 xset fp rehash
@@ -18,12 +19,9 @@ xset fp rehash
 xmodmap -e "clear lock"
 xmodmap -e "keycode 0x42 = Escape"
 xbindkeys
-
 xset -dpms
 xset s off
 
-xrdb ~/.Xresources
-    
 hsetroot -center ~/images/paletrees.jpg
 unclutter -idle 10 -jitter 5 &
 ~/bin/dwmstatus &
