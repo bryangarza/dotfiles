@@ -10,23 +10,17 @@ date_upd() {
     sdate="$(date +"%B") $(date +"%d")"
 }
 
-pb_stat() {
+mus_stat() {
     if (($(pgrep -c pianobar) > 0)) || (($(pgrep -c pianobarfly) > 0)); then
         if [[ -s "$file" ]]; then
-            mus="$(cat $file)"
-        else
-            mus=''
+            mus=$(<$file)
         fi
-    else
-        mus=''
-    fi
-}
-
-cmus_stat() {
-    if (($(pgrep -c cmus) > 0)); then
+    elif (($(pgrep -c cmus) > 0)); then
         local pre_title="$(cmus-remote -Q | grep 'tag title')"
         local pre_artist="$(cmus-remote -Q | grep 'tag artist')"
         mus="${pre_artist:10} - ${pre_title:9} |"
+    else
+        mus=''
     fi
 }
 
@@ -47,8 +41,7 @@ if ((date_check == 23)) && ((minute >= 59)); then
     date_upd
 fi
 
-pb_stat
-cmus_stat
+mus_stat
 
 vol="Vol $(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/')"
 volstat=$(amixer get Master | tail -n 1 | cut -d' ' -f 8-)
