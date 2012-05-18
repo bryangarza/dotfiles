@@ -1,0 +1,34 @@
+set color_cmdline_bg=default
+set color_cmdline_fg=default
+
+set color_error=red
+set color_info=blue
+set color_separator=gray
+
+set color_statusline_bg=default
+set color_statusline_fg=default
+
+set color_win_bg=default
+set color_win_fg=default
+
+set color_win_cur=white
+set color_win_cur_sel_bg=darkgray
+set color_win_cur_sel_fg=white
+
+set color_win_dir=darkgray
+
+set color_win_inactive_cur_sel_bg=darkgray
+set color_win_inactive_cur_sel_fg=default
+
+set color_win_inactive_sel_bg=darkgray
+set color_win_inactive_sel_fg=default
+
+set color_win_sel_bg=darkgray
+set color_win_sel_fg=default
+
+set color_win_title_bg=black
+set color_win_title_fg=default
+
+set color_titleline_bg=232
+set color_titleline_fg=default
+
