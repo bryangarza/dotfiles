@@ -8,6 +8,7 @@
 
 export HISTCONTROL=ignoredups:erasedups
 export EDITOR=vim
+export VISUAL=vim
 export HISTSIZE=10000
 export LC_ALL=
 export LC_COLLATE="C"
