@@ -10,12 +10,20 @@ date_upd() {
     sdate="$(date +"%B") $(date +"%d")"
 }
 
+runs() {
+    if (($(pgrep -c "$1") > 0)); then
+        return 0
+    else
+        return 1
+    fi
+}
+
 mus_stat() {
-    if (($(pgrep -c pianobar) > 0)) || (($(pgrep -c pianobarfly) > 0)); then
+    if runs "pianobar" || runs "pianobar"; then
         if [[ -s "$file" ]]; then
             mus=$(<$file)
         fi
-    elif (($(pgrep -c cmus) > 0)); then
+    elif runs "cmus"; then
         local pre_title="$(cmus-remote -Q | grep 'tag title')"
         local pre_artist="$(cmus-remote -Q | grep 'tag artist')"
         mus="${pre_artist:10} - ${pre_title:9} |"
@@ -24,6 +32,22 @@ mus_stat() {
     fi
 }
 
+tmux_stat() {
+    tmux_list=''
+
+    if runs "tmux"; then
+        local winlist=$(tmux list-windows -F "#{?window_active,+,-}#{window_index}:#{window_name}")
+
+        while read -r line; do
+            if [[ "${line:0:1}" == '+' ]]; then
+                tmux_list="$tmux_list${line:1} "
+            else
+                tmux_list="$tmux_list${line:1} "
+            fi
+        done <<< "$winlist"
+    fi
+}
+    
 pac_upd
 date_upd
 
@@ -42,19 +66,18 @@ if ((date_check == 23)) && ((minute >= 59)); then
 fi
 
 mus_stat
+tmux_stat
 
 vol="Vol $(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/')"
 volstat=$(amixer get Master | tail -n 1 | cut -d' ' -f 8-)
 
 stime="$(date +"%I"):$(date +"%M"):$(date +"%S")"
 
-
-if [[ $volstat = off ]];
-then
+if [[ $volstat = off ]]; then
     vol="Vol --%"
 fi
 
-out="${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
+out="${tmux_list}| ${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
 xsetroot -name "${out}"
 
 sleep 1s
