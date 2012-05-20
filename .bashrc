@@ -97,6 +97,7 @@ alias cr='cp -rv'
 alias rr='rm -rv'
 alias off='echo Shutdown; sudo shutdown -h now'
 alias offr='echo Reboot; sudo shutdown -r now'
+alias mp3c='find ~/music -name *.mp3 | wc -l'
 
 # git
 alias gs='git status'
