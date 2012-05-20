@@ -47,39 +47,44 @@ tmux_stat() {
         done <<< "$winlist"
     fi
 }
+
+vol_stat() {
+    local prevol="$(amixer get Master | tail -n 1)"
+
+    if [[ $prevol = *off* ]]; then
+        vol="Vol --%"
+    else
+        prevol2="${prevol#*[}"
+        vol="Vol ${prevol2%%]*}"
+    fi
+}
     
 pac_upd
 date_upd
 
 while true; do
 
-minute=$(date +"%-M")
-minute_rem=$((minute % 5))
-date_check=$(date +"%-H")
+    minute=$(date +"%-M")
+    minute_rem=$((minute % 5))
+    date_check=$(date +"%-H")
 
-if ((minute_rem == 0)); then
-    pac_upd
-fi
+    if ((minute_rem == 0)); then
+        pac_upd
+    fi
 
-if ((date_check == 23)) && ((minute >= 59)); then
-    date_upd
-fi
+    if ((date_check == 23)) && ((minute >= 59)); then
+        date_upd
+    fi
 
-mus_stat
-tmux_stat
+    stime="$(date +"%I"):$(date +"%M"):$(date +"%S")"
 
-vol="Vol $(amixer get Master | tail -1 | sed 's/.*\[\([0-9]*%\)\].*/\1/')"
-volstat=$(amixer get Master | tail -n 1 | cut -d' ' -f 8-)
+    mus_stat
+    tmux_stat
+    vol_stat
 
-stime="$(date +"%I"):$(date +"%M"):$(date +"%S")"
+    out="${tmux_list}|${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
+    xsetroot -name "${out}"
 
-if [[ $volstat = off ]]; then
-    vol="Vol --%"
-fi
-
-out="${tmux_list}|${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
-xsetroot -name "${out}"
-
-sleep 1s
+    sleep 1s
 
 done
