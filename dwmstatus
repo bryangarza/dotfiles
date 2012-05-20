@@ -77,7 +77,7 @@ if [[ $volstat = off ]]; then
     vol="Vol --%"
 fi
 
-out="${tmux_list}| ${mus} ${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
+out="${tmux_list}| ${mus}${dwmstatus_upd} | ${vol} | ${sdate} | ${stime} "
 xsetroot -name "${out}"
 
 sleep 1s
