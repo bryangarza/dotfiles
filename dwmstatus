@@ -7,7 +7,7 @@ pac_upd() {
 }
 
 date_upd() {
-    sdate="$(date +"%B") $(date +"%d")"
+    sdate="$(date +"%A") $(date +"%B") $(date +"%d")"
 }
 
 runs() {
