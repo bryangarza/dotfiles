@@ -1,0 +1,27 @@
+URxvt*foreground:#E8E8FE
+URxvt*background:#121212
+!black
+URxvt*color0:#333333
+URxvt*color8:#262626
+!red
+URxvt*color1:#8c252f
+URxvt*color9:#a62e2e
+!green
+! The color on top is the normal, lower one is bold.
+URxvt*color2:#00B262
+URxvt*color10:#00FF8C
+!yellow
+URxvt*color3:#B27D00
+URxvt*color11:#FFB200
+!blue
+URxvt*color4:#12127D
+URxvt*color12:#1919B3
+!magenta
+URxvt*color5:#6530ba
+URxvt*color13:#733bcc
+!cyan
+URxvt*color6:#00c0ff
+URxvt*color14:#24c9ff
+!white
+URxvt*color7:#C8C8FE
+URxvt*color15:#f8f8f2
