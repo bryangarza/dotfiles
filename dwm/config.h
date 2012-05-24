@@ -7,7 +7,8 @@ static const char colors[NUMCOLORS][ColLast][9] = {
     // border foreground background
     { "#000000", "#777777", "#111111" }, // 0 = normal \x01
     //{ "#777777", "#ED0884", "#111111" }, // 1 = selected \x02 --- neon pink
-    { "#777777", "#B7CE42", "#111111" }, // 1 = selected \x02
+    //{ "#777777", "#B7CE42", "#111111" }, // 1 = selected \x02
+    { "#777777", "#AACCBB", "#111111" }, // 1 = selected \x02
     { "#212121", "#FFFFFF", "#111111" }, // 8 = white \x04
     { "#212121", "#D23D3D", "#000000" }, // 2 = red \x03
     { "#212121", "#BDE077", "#000000" }, // 3 = green \x05
@@ -19,7 +20,7 @@ static const char colors[NUMCOLORS][ColLast][9] = {
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 15;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
-static const Bool topbar            = False;     /* False means bottom bar */
+static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
 static const char *tags[] = { "dwm", "term", "etc", "web" };
@@ -33,6 +34,7 @@ static const Rule rules[] = {
 	{ "Tabbed",   NULL,       NULL,       1 << 3,       False,       -1 },
 	{ "Gimp",     NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Minitube", NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "Mplayer",  NULL,       NULL,       1 << 2,       False,       -1 },
 };
 
 /* layout(s) */

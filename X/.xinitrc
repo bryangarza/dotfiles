@@ -22,8 +22,9 @@ xbindkeys
 xset -dpms
 xset s off
 
-hsetroot -center ~/images/paletrees.jpg
+hsetroot -center ~/images/tree_silhouette.png
 unclutter -idle 10 -jitter 5 &
 ~/bin/dwmstatus &
 urxvtd -q -o -f
+compton -cCGbf -o 0.75 -t 0.02 -l 0.02 -r 3.5 
 exec dwm
